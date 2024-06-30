@@ -29,7 +29,7 @@ var_dump($_SESSION);
             <div class="container">
                 <?php if(!empty($_SESSION["user"])) { ?>
                     <div class="row">
-                        <form action="./redirect.php" method="GET" class="col-6 mx-auto d-flex flex-column justify-content-center align-items-center">
+                        <form action="./logoutRedirect.php" method="GET" class="col-6 mx-auto d-flex flex-column justify-content-center align-items-center">
                             <h3 class="mb-3"> <?php echo $_SESSION["user"] ?>, are you sure you want to log out?</h3>
                             <button class="btn btn-primary">Logout</button>
                         </form >

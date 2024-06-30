@@ -6,7 +6,7 @@ session_start();
 if(isset($_GET["userName"]) && isset($_GET["password"])){
     $_SESSION["user"] = $_GET["userName"];
     $_SESSION["password"] = $_GET["password"];
-}
+};
 
 var_dump($_SESSION);
 ?>
@@ -34,30 +34,31 @@ var_dump($_SESSION);
         </header>
         <main class="p-3">
             <div class="container">
-
-                    <?php if(empty($_SESSION["user"])) { ?>
-                        <div class="row">
-                            <form action="./login.php" method="GET" class="col-6 mx-auto pt-4">
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="userName" id="userName" class="form-control" placeholder="Username">
-                                    <label for="userName">Username</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-                                    <label for="password">Password</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </form>
+                <div class="row">
+                    <form action="./login.php" method="GET" class="col-6 mx-auto pt-4">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="userName" id="userName" class="form-control" placeholder="Username">
+                            <label for="userName">Username</label>
                         </div>
-                    <?php } else { ?>
-                        <h3 class="text-center">Welcome back <?php echo $_SESSION["user"] ?>! </h3>
-                    <?php } ?>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                            <label for="password">Password</label>
+                        </div>
 
+                        <?php 
+                            if(!empty($_SESSION["user"]) && !empty($_SESSION["password"])){
+                                if(checkUserInfo($users, $_SESSION["user"], "username", $_SESSION["password"], "password")){
+                                    header("Location: ./index.php");
+                                } else { ?>
+                                    <p class="text-danger">Invalid username or password</p>
+                            <?php }
+                            }; 
+                        ?>
 
-                    
-                </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>       
             </div>
-            
         </main>
     </div>
 </body>
