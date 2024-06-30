@@ -1,7 +1,9 @@
 <?php 
+require_once __DIR__ . "/src/utils.php";
+require_once __DIR__ . "/src/functions.php";
 session_start();
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -27,16 +29,24 @@ var_dump($_SESSION);
         </header>
         <main class="p-3">
             <div class="container">
-                <?php if(!empty($_SESSION["user"])) { ?>
-                    <div class="row">
-                        <form action="./logoutRedirect.php" method="GET" class="col-6 mx-auto d-flex flex-column justify-content-center align-items-center">
-                            <h3 class="mb-3"> <?php echo $_SESSION["user"] ?>, are you sure you want to log out?</h3>
-                            <button class="btn btn-primary">Logout</button>
-                        </form >
-                    </div>
-                <?php } else { ?>
-                    <h3 class="text-center">You are not logged in!</h3>
-                <?php } ?>
+
+                <?php 
+                    if(!empty($_SESSION["user"]) && !empty($_SESSION["password"]) && checkUserInfo($users, $_SESSION["user"], "username", $_SESSION["password"], "password")){ ?>
+                            <div class="row">
+                                <form action="./logoutRedirect.php" method="GET" class="col-6 mx-auto d-flex flex-column justify-content-center align-items-center">
+                                    <h3 class="mb-4 text-center"> <?php echo $_SESSION["user"] ?>, are you sure you want to log out?</h3>
+                                    <button class="btn btn-primary">Logout</button>
+                                </form >
+                            </div>
+                    <?php } else { ?>
+                        <div class="row">
+                            <form action="./logoutRedirect.php" method="GET" class="col-6 mx-auto d-flex flex-column justify-content-center align-items-center">
+                                <p class="fw-bold text-center fs-3">You are not logged in!</p>
+                                <button class="btn btn-warning">Go to Login</button>
+                            </form >
+                        </div>
+                    <?php } 
+                ?>
             </div>
             
         </main>

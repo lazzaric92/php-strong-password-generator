@@ -8,7 +8,7 @@ if(isset($_GET["userName"]) && isset($_GET["password"])){
     $_SESSION["password"] = $_GET["password"];
 };
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
